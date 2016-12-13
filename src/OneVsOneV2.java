@@ -13,113 +13,128 @@ public class OneVsOneV2 {
 		in = new Scanner(System.in);
 		player1.setPlayerName(in.next());
 		
+		do {	
 		System.out.println("Please choose class for Player1: Warrior, Mage or Archer");
 		in = new Scanner(System.in);
 		player1.setPlayerClass(in.next());
-		
+		} while (!player1.getPlayerClass().equals("Warrior") && !player1.getPlayerClass().equals("Mage") && !player1.getPlayerClass().equals("Archer"));
+			
 		System.out.println("Please enter Player2 name:");
 		in = new Scanner(System.in);
 		player2.setPlayerName(in.next());
 		
-		System.out.println("Please choose class for Player1: Warrior, Mage or Archer");
+		do {
+		System.out.println("Please choose class for Player2: Warrior, Mage or Archer");
 		in = new Scanner(System.in);
 		player2.setPlayerClass(in.next());
+		} while (!player2.getPlayerClass().equals("Warrior") && !player2.getPlayerClass().equals("Mage") && !player2.getPlayerClass().equals("Archer"));
 		
-		while (player1.getPlayerHealth() > 0 && player2.getPlayerHealth() > 0) {
+		while (player1.getPlayerHealth() > 0 && player2.getPlayerHealth() > 0 
+			&& player1.getPlayerStamina() > 0 && player2.getPlayerStamina() > 0) {
 		
 			System.out.println(player1.getPlayerName() + "'s turn");
 			System.out.println("Enter attack, defend, heal or special");
 			in = new Scanner(System.in);
 			String i = in.next();
-			switch(i) {
-			case "attack":
-				player1.setPlayerStamina(player1.getPlayerStamina() - 1);
-				player2.setPlayerHealth(player2.getPlayerHealth() - 5);
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				break;
-			case "defend":
-				player1.setPlayerStamina(player1.getPlayerStamina() - 2);
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
-			case "heal":
-				player1.setPlayerStamina(player1.getPlayerStamina() - 2);
-				player1.setPlayerHealth(player1.getPlayerHealth() + 3);
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
-			case "special":
-				switch(player1.getPlayerClass()) {
-				case "Warrior":
-					System.out.println(player1.getPlayerName() + " used Charge!");
-					player1.setPlayerStamina(player1.getPlayerStamina() - 2);
-					player2.setPlayerHealth(player2.getPlayerHealth() - 3);
-					break;
-				case "Mage":
-					System.out.println(player1.getPlayerName() + " used Fireball!");
-					player1.setPlayerStamina(player1.getPlayerStamina() - 3);
-					player2.setPlayerHealth(player2.getPlayerHealth() - 5);
-					break;
-				case "Archer":
-					System.out.println(player1.getPlayerName() + " used Cheapshot!");
+			if(!i.equals("attack") && !i.equals("defend") && !i.equals("heal") && !i.equals("special")) {
+				System.out.println("Balfasz vagy, kimaradsz a körbõl");
+			}
+			else {
+				switch(i) {
+				case "attack":
 					player1.setPlayerStamina(player1.getPlayerStamina() - 1);
-					player2.setPlayerHealth(player2.getPlayerHealth() - 2);
-					break;	
+					player2.setPlayerHealth(player2.getPlayerHealth() - 5);
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					break;
+				case "defend":
+					player1.setPlayerStamina(player1.getPlayerStamina() - 2);
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
+				case "heal":
+					player1.setPlayerStamina(player1.getPlayerStamina() - 2);
+					player1.setPlayerHealth(player1.getPlayerHealth() + 3);
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
+				case "special":
+					switch(player1.getPlayerClass()) {
+					case "Warrior":
+						System.out.println(player1.getPlayerName() + " used Charge!");
+						player1.setPlayerStamina(player1.getPlayerStamina() - 2);
+						player2.setPlayerHealth(player2.getPlayerHealth() - 3);
+						break;
+					case "Mage":
+						System.out.println(player1.getPlayerName() + " used Fireball!");
+						player1.setPlayerStamina(player1.getPlayerStamina() - 3);
+						player2.setPlayerHealth(player2.getPlayerHealth() - 5);
+						break;
+					case "Archer":
+						System.out.println(player1.getPlayerName() + " used Cheapshot!");
+						player1.setPlayerStamina(player1.getPlayerStamina() - 1);
+						player2.setPlayerHealth(player2.getPlayerHealth() - 2);
+						break;	
+					}
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
 				}
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
 			}
 			
 			System.out.println(player2.getPlayerName() + "'s turn");
 			System.out.println("Enter attack, defend, heal or special");
 			in = new Scanner(System.in);
 			String n = in.next();
-			switch(n) {
-			case "attack":
-				player2.setPlayerStamina(player1.getPlayerStamina() - 1);
-				player1.setPlayerHealth(player1.getPlayerHealth() - 5);
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				break;
-			case "defend":
-				player2.setPlayerStamina(player2.getPlayerStamina() - 2);
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
-			case "heal":
-				player2.setPlayerStamina(player2.getPlayerStamina() - 2);
-				player2.setPlayerHealth(player2.getPlayerHealth() + 3);
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
-			case "special":
-				switch(player2.getPlayerClass()) {
-				case "Warrior":
-					System.out.println(player2.getPlayerName() + " used Charge!");
-					player2.setPlayerStamina(player2.getPlayerStamina() - 2);
-					player1.setPlayerHealth(player1.getPlayerHealth() - 3);
-					break;
-				case "Mage":
-					System.out.println(player2.getPlayerName() + " used Fireball!");
-					player2.setPlayerStamina(player2.getPlayerStamina() - 3);
+			if(!n.equals("attack") && !n.equals("defend") && !n.equals("heal") && !n.equals("special")) {
+				System.out.println("Balfasz vagy, kimaradsz a körbõl");
+			}
+			else {
+				switch(n) {
+				case "attack":
+					player2.setPlayerStamina(player1.getPlayerStamina() - 1);
 					player1.setPlayerHealth(player1.getPlayerHealth() - 5);
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
 					break;
-				case "Archer":
-					System.out.println(player2.getPlayerName() + " used Cheapshot!");
-					player2.setPlayerStamina(player2.getPlayerStamina() - 1);
-					player1.setPlayerHealth(player1.getPlayerHealth() - 2);
-					break;	
+				case "defend":
+					player2.setPlayerStamina(player2.getPlayerStamina() - 2);
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
+				case "heal":
+					player2.setPlayerStamina(player2.getPlayerStamina() - 2);
+					player2.setPlayerHealth(player2.getPlayerHealth() + 3);
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
+				case "special":
+					switch(player2.getPlayerClass()) {
+					case "Warrior":
+						System.out.println(player2.getPlayerName() + " used Charge!");
+						player2.setPlayerStamina(player2.getPlayerStamina() - 2);
+						player1.setPlayerHealth(player1.getPlayerHealth() - 3);
+						break;
+					case "Mage":
+						System.out.println(player2.getPlayerName() + " used Fireball!");
+						player2.setPlayerStamina(player2.getPlayerStamina() - 3);
+						player1.setPlayerHealth(player1.getPlayerHealth() - 5);
+						break;
+					case "Archer":
+						System.out.println(player2.getPlayerName() + " used Cheapshot!");
+						player2.setPlayerStamina(player2.getPlayerStamina() - 1);
+						player1.setPlayerHealth(player1.getPlayerHealth() - 2);
+						break;	
+					}
+					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
+					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
+					break;
 				}
-				System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-				System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-				break;
 			}
 			
 		} 
 		
-		if(player1.getPlayerHealth() <= 0 && player2.getPlayerHealth() > 0) {
+		if(player1.getPlayerHealth() <= 0 || player1.getPlayerStamina() <= 0) {
 			System.out.println(player1.getPlayerName() + " lost!");
 		}
 		else {
