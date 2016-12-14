@@ -35,98 +35,7 @@ public class OneVsOneV2 {
 		} while (!player2.getPlayerClass().equals("warrior") && !player2.getPlayerClass().equals("mage") && !player2.getPlayerClass().equals("archer"));
 		
 		//Round loop
-		while (player1.getPlayerHealth() > 0 && player2.getPlayerHealth() > 0 
-			&& player1.getPlayerStamina() > 0 && player2.getPlayerStamina() > 0) {
-		
-			//player1's round
-			System.out.println(player1.getPlayerName() + "'s turn");
-			System.out.println("Enter attack, defend, heal or special"); //4 available moves
-			in = new Scanner(System.in);
-			String i = in.next();
-			if(!i.equals("attack") && !i.equals("defend") && !i.equals("heal") && !i.equals("special")) {
-				System.out.println("Balfasz vagy, kimaradsz a körbõl"); //Input error
-			}
-			//Moves.java, player1
-			else {
-				switch(i) {
-				case "attack":
-					Moves attack1 = new Moves();
-					attack1.attackP1(player1, player2);
-					break;
-				case "defend":
-					Moves defend1 = new Moves();
-					defend1.defendP1(player1, player2);
-					break;
-				case "heal":
-					Moves heal1 = new Moves();
-					heal1.healP1(player1, player2);
-					break;
-				case "special":
-					switch(player1.getPlayerClass()) {
-					case "Warrior":
-						Moves charge1 = new Moves();
-						charge1.chargeP1(player1, player2);
-						break;
-					case "Mage":
-						Moves fireball1 = new Moves();
-						fireball1.fireballP1(player1, player2);
-						break;
-					case "Archer":
-						Moves cheapshot1 = new Moves();
-						cheapshot1.chargeP1(player1, player2);
-						break;	
-					}
-					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-					break;
-				}
-			}
-			
-			//player2's round
-			System.out.println(player2.getPlayerName() + "'s turn");
-			System.out.println("Enter attack, defend, heal or special"); //4 available moves
-			in = new Scanner(System.in);
-			String n = in.next();
-			if(!n.equals("attack") && !n.equals("defend") && !n.equals("heal") && !n.equals("special")) {
-				System.out.println("Balfasz vagy, kimaradsz a körbõl"); //Input error
-			}
-			//Moves.java, player2
-			else {
-				switch(n) {
-				case "attack":
-					Moves attack2 = new Moves();
-					attack2.attackP2(player1, player2);
-					break;
-				case "defend":
-					Moves defend2 = new Moves();
-					defend2.defendP2(player1, player2);
-					break;
-				case "heal":
-					Moves heal2 = new Moves();
-					heal2.healP2(player1, player2);
-					break;
-				case "special":
-					switch(player2.getPlayerClass()) {
-					case "Warrior":
-						Moves charge2 = new Moves();
-						charge2.chargeP2(player1, player2);
-						break;
-					case "Mage":
-						Moves fireball2 = new Moves();
-						fireball2.fireballP2(player1, player2);
-						break;
-					case "Archer":
-						Moves cheapshot2 = new Moves();
-						cheapshot2.chargeP2(player1, player2);
-						break;	
-					}
-					System.out.println(player2.getPlayerName() + "'s health is: " + player2.getPlayerHealth() + " their stamina is: " + player2.getPlayerStamina());
-					System.out.println(player1.getPlayerName() + "'s health is: " + player1.getPlayerHealth() + " their stamina is: " + player1.getPlayerStamina());
-					break;
-				}
-			}
-			
-		} 
+		round(player1, player2); 
 		
 		//End-game notification
 		if(player1.getPlayerHealth() <= 0 || player1.getPlayerStamina() <= 0) {
@@ -136,6 +45,114 @@ public class OneVsOneV2 {
 			System.out.println(player2.getPlayerName() + " lost!");
 		}
 		
+	}
+	
+	//instead of nested switch
+	public static void special2(Player player1, Player player2) {
+		switch(player2.getPlayerClass()) {
+		case "warrior":
+			Moves charge2 = new Moves();
+			charge2.chargeP2(player1, player2);
+			break;
+		case "mage":
+			Moves fireball2 = new Moves();
+			fireball2.fireballP2(player1, player2);
+			break;
+		case "archer":
+			Moves cheapshot2 = new Moves();
+			cheapshot2.cheapshotP2(player1, player2);
+			break;	
+		}
+	}
+	
+	public static void special1(Player player1, Player player2) {
+		switch(player1.getPlayerClass()) {
+		case "warrior":
+			Moves charge1 = new Moves();
+			charge1.chargeP1(player1, player2);
+			break;
+		case "mage":
+			Moves fireball1 = new Moves();
+			fireball1.fireballP1(player1, player2);
+			break;
+		case "archer":
+			Moves cheapshot1 = new Moves();
+			cheapshot1.cheapshotP1(player1, player2);
+			break;	
+		}
+	}
+	
+	//Round loop
+	public static void round(Player player1, Player player2) {
+		while (player1.getPlayerHealth() > 0 && player2.getPlayerHealth() > 0 
+				&& player1.getPlayerStamina() > 0 && player2.getPlayerStamina() > 0) {
+			
+				//player1's round
+				System.out.println(player1.getPlayerName() + "'s turn");
+				System.out.println("Enter attack, defend, heal or special"); //4 available moves
+				in = new Scanner(System.in);
+				String i = in.next();
+				if(!i.equals("attack") && !i.equals("defend") && !i.equals("heal") && !i.equals("special")) {
+					System.out.println("Balfasz vagy, kimaradsz a körbõl"); //Input error
+				}
+				//Moves.java, player1
+				else {
+					switch(i) {
+					case "attack":
+						Moves attack1 = new Moves();
+						attack1.attackP1(player1, player2);
+						break;
+					case "defend":
+						Moves defend1 = new Moves();
+						defend1.defendP1(player1, player2);
+						break;
+					case "heal":
+						Moves heal1 = new Moves();
+						heal1.healP1(player1, player2);
+						break;
+					case "special":
+						special1(player1, player2);
+						break;
+					}
+				
+				}
+				
+				//player2's round
+				System.out.println(player2.getPlayerName() + "'s turn");
+				System.out.println("Enter attack, defend, heal or special"); //4 available moves
+				in = new Scanner(System.in);
+				String n = in.next();
+				if(!n.equals("attack") && !n.equals("defend") && !n.equals("heal") && !n.equals("special")) {
+					System.out.println("Balfasz vagy, kimaradsz a körbõl"); //Input error
+				}
+				//Moves.java, player2
+				else {
+					switch(n) {
+					case "attack":
+						Moves attack2 = new Moves();
+						attack2.attackP2(player1, player2);
+						break;
+					case "defend":
+						Moves defend2 = new Moves();
+						defend2.defendP2(player1, player2);
+						break;
+					case "heal":
+						Moves heal2 = new Moves();
+						heal2.healP2(player1, player2);
+						break;
+					case "special":
+						special2(player1, player2);
+						break;
+					}
+				}
+				
+			} 
+	}
+	
+	public static void name(Player player1, Player player2) {
+		System.out.println("Please enter " + (player1) +" name:");
+		in = new Scanner(System.in);
+		(player1).setPlayerName(in.next());
 	}
 
 }
